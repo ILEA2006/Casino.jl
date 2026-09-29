@@ -1,0 +1,7 @@
+name = "Casino"
+uuid = "20e68cde-66e2-4616-9517-e6d4c2a99967"
+authors = ["Nokenz <xxnokennyxx@gmail.com>"]
+version = "0.0.1"
+
+[compat]
+julia = "1.10"
