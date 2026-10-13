@@ -43,3 +43,19 @@ struct Pari
     type_pari::String
     mise::Float64
 end
+
+function verifier_pari(pari::Pari, joueur::Joueur)
+
+    types_valides = ["numero", "rouge","noir", "pair", "impair", "manque", "passe"] # gere le problemes des majuscules et minuscules
+    if !(pari.type_pari in types_valides)
+        error("Type de pari invalide. Les types valides sont : $(types_valides).")
+    elseif pari.mise <= 0
+        error("La mise doit être un montant positif.")
+    elseif pari.mise > joueur.capital
+        error("Vous n'avez pas assez de capital pour ce pari.")
+    else
+        println("Pari valide : $(pari.type_pari) avec une mise de $(pari.mise).")
+        #return true
+    end
+    
+end

@@ -35,3 +35,5 @@ println("Capital du joueur : ", joueur.capital)
 println("Type de pari : ", pari.type_pari)
 println("Montant misé : ", pari.mise) 
 
+pari1 = Pari("pair", 50.0)
+verifier_pari(pari1, joueur)

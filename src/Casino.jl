@@ -22,7 +22,7 @@ export couleur
 export parite
 export manque_passe
 export Pari
-
+export verifier_pari
 
 include("roulette.jl")
 
