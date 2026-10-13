@@ -1,3 +1,18 @@
+mutable struct Joueur
+    nom::String
+    solde::Float64
+    nb_parties::Int
+end
+
+
+struct ResultatYams
+    des::Vector{Int}
+    combinaison::String
+    mise::Float64
+    gain::Float64
+end
+
+
 function lancer_des()
     return rand(1:6, 5)
 end
@@ -42,4 +57,34 @@ function lancer_jusqua_yams()
     end
 
     return i
+end
+
+function multiplicateur(combinaison)
+    if combinaison == "paire"
+        return 1
+    elseif combinaison == "double_paire"
+        return 2
+    elseif combinaison == "brelan"
+        return 3
+    elseif combinaison == "full"
+        return 5
+    elseif combinaison == "carre"
+        return 10
+    elseif combinaison == "yams"
+        return 50
+    else
+        return 0
+    end
+end
+
+function gain(mise, combinaison)
+    return mise * multiplicateur(combinaison)
+end
+
+function jouer_yams(mise)
+    des = lancer_des()
+    comb = combinaison(des)
+    montant = gain(mise, comb)
+
+    return ResultatYams(des, comb, mise, montant)
 end
