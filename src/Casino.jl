@@ -2,11 +2,35 @@ module Casino
 
 using StatsBase
 
-include("yams.jl")
-
+#Yams
+export Joueur_Yams
+export ResultatYams
 export lancer_des
 export combinaison
 export lancer_jusqua_yams
+export multiplicateur
+export gain
+export jouer_yams
+
+include("yams.jl")
+
+# Roulette
+export Joueur
+export lancer_roulette
+export rouge
+export couleur
+export parite
+export manque_passe
+export Pari
+
+
+include("roulette.jl")
+
+#Craps
+
+export PassLine, sumdes, DontPass, prop
+
+include("craps.jl")
 
 
 end
