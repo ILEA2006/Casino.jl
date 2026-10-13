@@ -26,6 +26,7 @@ numero = lancer_roulette()
 println("Numéro : ", numero)
 println("Couleur : ", couleur(numero))
 println("Parité : ", parite(numero))
+parite(numero)
 println("Catégorie : ", manque_passe(numero))
 
 joueur = Joueur(100.0)

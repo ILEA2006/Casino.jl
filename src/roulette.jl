@@ -21,11 +21,11 @@ end
 
 function parite(numero)
     if numero == 0
-        return "aucune"
+        return :aucune
     elseif iseven(numero)
-        return "pair"
+        return :pair
      else
-        return "impair"
+        return :impair
     end
 end
 
