@@ -3,7 +3,7 @@ module Casino
 using StatsBase
 
 #Yams
-export Joueur
+export Joueur_Yams
 export ResultatYams
 export lancer_des
 export combinaison
@@ -22,7 +22,7 @@ export couleur
 export parite
 export manque_passe
 export Pari
-export verifier_pari
+
 
 include("roulette.jl")
 
