@@ -26,4 +26,11 @@ export Pari
 
 include("roulette.jl")
 
+#Craps
+
+export PassLine, sumdes, DontPass, prop
+
+include("craps.jl")
+
+
 end
