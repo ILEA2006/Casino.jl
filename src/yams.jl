@@ -16,7 +16,7 @@ end
 function lancer_des()
     return rand(1:6, 5)
 end
-
+#test push 
 
 function combinaison(des)
     freq = sort(collect(values(countmap(des))))
