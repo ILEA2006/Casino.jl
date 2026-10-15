@@ -3,7 +3,7 @@ module Casino
 using StatsBase
 
 #Yams
-export Joueur
+export Joueur_Yams
 export ResultatYams
 export lancer_des
 export combinaison
