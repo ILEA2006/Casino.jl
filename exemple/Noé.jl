@@ -1,6 +1,6 @@
 using Casino
 
-Noé = Joueur_Yams("Noé", 100.0, 0)
+#Noé = Joueur_Yams("Noé", 100.0, 0)
 
 println("Solde initial : ", Noé.solde)
 

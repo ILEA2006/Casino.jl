@@ -13,10 +13,6 @@ struct ResultatYams
 end
 
 
-function lancer_des()
-    return rand(1:6, 5)
-end
-
 
 function combinaison(des)
     freq = sort(collect(values(countmap(des))))
@@ -44,12 +40,13 @@ function combinaison(des)
     end
 end
 
+#On lance nos des jusqu'à obtenir un Yams et regarde le nombre de lancés
 function lancer_jusqua_yams()
     i = 0
 
     while true
         i += 1
-        des = lancer_des()
+        des = rand(1:6,5)
 
         if combinaison(des) == "yams"
             break
@@ -59,19 +56,20 @@ function lancer_jusqua_yams()
     return i
 end
 
+#On assigne un multiplicateur à chaque figure, ces multiplicateurs ont été calculé de sorte à ce que l'espérance de gain soit proche de 0,9 pour simuler un jeu de casino réaliste
 function multiplicateur(combinaison)
     if combinaison == "paire"
+        return 0
+    elseif combinaison == "double paire"
         return 1
-    elseif combinaison == "double_paire"
-        return 2
     elseif combinaison == "brelan"
-        return 3
+        return 2
     elseif combinaison == "full"
         return 5
     elseif combinaison == "carre"
-        return 10
+        return 8
     elseif combinaison == "yams"
-        return 50
+        return 40
     else
         return 0
     end
@@ -81,18 +79,25 @@ function gain(mise, combinaison)
     return mise * multiplicateur(combinaison)
 end
 
+#On utilise le multiple dispatching pour créer une fonction qui simule une partie de Yams avec ou sans Joueur
 function jouer_yams(mise)
+
+    # Vérifier que la mise est valide
     if mise <= 0
         throw(ArgumentError("La mise doit être positive"))
     end
-    des = lancer_des()
+
+    #Simule un lancé de 5 des
+    des = rand(1:6, 5)
+
+
     comb = combinaison(des)
     montant = gain(mise, comb)
 
     return ResultatYams(des, comb, mise, montant)
 end
 
-function jouer_yams(joueur::Joueur, mise::Real)
+function jouer_yams(joueur::Joueur_Yams, mise::Real)
 
     # Vérifier que la mise est valide
     if mise <= 0
@@ -117,4 +122,16 @@ function jouer_yams(joueur::Joueur, mise::Real)
     joueur.nb_parties += 1
 
     return resultat
+end
+
+function simule_Yams(joueur::Joueur_Yams, nb::Int, mise::Real)
+    for n in 1:nb
+
+        if joueur.solde < mise
+            println("Solde insuffisant, fin de la simulation.")
+            break
+        end
+
+        jouer_yams(joueur, mise)
+    end
 end
