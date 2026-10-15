@@ -29,11 +29,27 @@ println("Parité : ", parite(numero))
 parite(numero)
 println("Catégorie : ", manque_passe(numero))
 
-joueur = Joueur(100.0)
-pari = Pari("Rouge", 10.0)
+joueur = Joueur(70.0)
+pari = Pari("pair", 70.0)
 println("Capital du joueur : ", joueur.capital)
 println("Type de pari : ", pari.type_pari)
 println("Montant misé : ", pari.mise) 
 
-pari1 = Pari("pair", 50.0)
+pari1 = Pari("imPAir", 50.0)
 verifier_pari(pari1, joueur)
+
+prelever_mise(joueur, pari)
+
+println(pari_gagnant(Pari("rouge", 10.0),lancer_roulette()))
+
+pari2 = Pari("Impair", 10.0)
+
+numero = 3
+
+println(calculer_gain(pari2, numero))
+
+
+gain = calculer_gain(pari, numero)
+ajouter_gain(joueur, gain)
+println("Gain reçu : ", gain)
+println("Capital final : ", joueur.capital)
