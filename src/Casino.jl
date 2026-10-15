@@ -32,7 +32,13 @@ include("roulette.jl")
 
 #Craps
 
-export PassLine, sumdes, DontPass, prop
+export PassLine
+export sumdes
+export DontPass
+export prop
+export dontcome
+export come
+export joueur
 
 include("craps.jl")
 
