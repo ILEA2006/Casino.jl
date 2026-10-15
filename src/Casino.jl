@@ -23,6 +23,10 @@ export parite
 export manque_passe
 export Pari
 export verifier_pari
+export prelever_mise
+export pari_gagnant
+export calculer_gain
+export ajouter_gain
 
 include("roulette.jl")
 
