@@ -27,6 +27,7 @@ export prelever_mise
 export pari_gagnant
 export calculer_gain
 export ajouter_gain
+export jouer_roulette
 
 include("roulette.jl")
 
