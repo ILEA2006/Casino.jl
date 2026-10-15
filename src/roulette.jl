@@ -102,3 +102,34 @@ function ajouter_gain(joueur::Joueur, gain::Float64)
     return  joueur.capital
     println("Gain de $(gain)€ ajouté. Nouveau capital : $(joueur.capital)€.")
 end
+
+function jouer_roulette(joueur::Joueur, pari::Pari)
+
+    # prelever la mise
+    prelever_mise(joueur, pari)
+    
+    # lancer la roulette
+    numero = lancer_roulette()
+
+    # calculer le gain
+    gain = calculer_gain(pari, numero)
+
+    # ajouter le gain au capital du joueur
+    ajouter_gain(joueur, gain)
+
+    # afficher le résultat du tour
+    println("Numéro tiré : $(numero).")
+    println("couleur : $(couleur(numero))")
+    println("Parité : $(parite(numero))")
+    println("Manque/Passe : $(manque_passe(numero))")
+
+
+    if gain > 0
+        println("Félicitations ! Vous avez gagné $(gain)€.")
+    else
+        println("Désolé, vous avez perdu votre mise de $(pari.mise)€.")
+    end
+
+    println("Capital restant : $(joueur.capital)€.")
+
+end

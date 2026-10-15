@@ -50,6 +50,9 @@ println(calculer_gain(pari2, numero))
 
 
 gain = calculer_gain(pari, numero)
-ajouter_gain(joueur, gain)
-println("Gain reçu : ", gain)
-println("Capital final : ", joueur.capital)
+
+
+# tester la roulette 
+joueur = Joueur(100.0)
+pari = Pari("ROUGE", 10.0)
+jouer_roulette(joueur, pari)
