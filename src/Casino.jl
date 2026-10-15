@@ -5,7 +5,6 @@ using StatsBase
 #Yams
 export Joueur_Yams
 export ResultatYams
-export lancer_des
 export combinaison
 export lancer_jusqua_yams
 export multiplicateur
