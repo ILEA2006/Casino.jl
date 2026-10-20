@@ -2,6 +2,10 @@ module Casino
 
 using StatsBase
 
+#abstract types communs
+abstract type AbstractGamer end
+abstract type AbstractGame end
+
 #Yams
 export Joueur_Yams
 export ResultatYams
@@ -31,14 +35,16 @@ export ajouter_gain
 include("roulette.jl")
 
 #Craps
-
-export PassLine
+export AbstractGame
+export AbstractGamer
+export passline
 export sumdes
-export DontPass
+export dontpass
 export prop
 export dontcome
 export come
-export joueur
+
+
 
 include("craps.jl")
 
