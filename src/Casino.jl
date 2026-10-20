@@ -9,7 +9,6 @@ abstract type AbstractGame end
 #Yams
 export Joueur_Yams
 export ResultatYams
-export lancer_des
 export combinaison
 export lancer_jusqua_yams
 export multiplicateur
@@ -31,6 +30,7 @@ export prelever_mise
 export pari_gagnant
 export calculer_gain
 export ajouter_gain
+export jouer_roulette
 
 include("roulette.jl")
 
