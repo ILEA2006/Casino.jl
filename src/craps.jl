@@ -1,13 +1,9 @@
 mutable struct CrapsGamer <: AbstractGamer
-    capital :: int128
-    mise :: int128
+    capital :: Int
+    mise :: Int
 end
 
 struct CrapsGame <:AbstractGame end
-
-function gains(a)
-joueur_craps.fonds=joueur_craps.fonds +a
-end
 
 function sumdes()
 v=rand(1:6, 2)
@@ -17,7 +13,7 @@ end
 #a prends le 1er lancer de des
 #b prends tous les lancers sur le point
 #pari le plus general du craps (facile de gagner)
-function passline(a) 
+function passline(a::Int,CrapsGamer:: AbstractGamer) 
 if(a==7) || (a==11)
     print("gagné") 
     CrapsGamer.capital=CrapsGamer.capital + CrapsGamer.mise #puisqu'on a pas enlevé la mise avant
@@ -42,10 +38,11 @@ else
     print("des tirés: ",b, ' ')
     end
 end
+return CrapsGamer
 end
 
 #même fonctionnement que passLine en inversé
-function dontpass(a)  #pari don't pass
+function dontpass(a::Int,CrapsGamer:: AbstractGamer)  #pari don't pass
 if(a==7) || (a==11)
     print("perdu ")  #perds la mise
     CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
@@ -72,10 +69,11 @@ else
     print("des tirés: ",b, ' ')
     end 
 end
+return CrapsGamer
 end
 
 #pari proposition (chiffre precis) sur un lancer
-function prop(x)  
+function prop(x,CrapsGamer:: AbstractGamer)  
 s=readline()  
 print("lancer= ",x)
 if(x==s)
@@ -85,10 +83,11 @@ else
     print("perdu")
     CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
 end
+return CrapsGamer
 end
 
 #comme passline mais a placer n'importe quand
-function come(a)  
+function come(a::Int,CrapsGamer:: AbstractGamer)  
 if(a==7) || (a==11)
     print("gagné ")   #prends gros gain (pari risqué)
 elseif (a==2)|| (a==3)||(a==12)
@@ -112,10 +111,11 @@ else
     print("des tirés: ",b, ' ')
     end
 end
+return CrapsGamer
 end
 
 #comme dontpass mais a placer n'import quand
-function dontcome(a)
+function dontcome(a::Int,CrapsGamer:: AbstractGamer)
 if(a==7) || (a==11)
     print("perdu ")
     CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
@@ -142,4 +142,5 @@ else
     print("des tirés: ",b, ' ')
     end 
 end
+return CrapsGamer
 end
