@@ -10,6 +10,7 @@ export lancer_jusqua_yams
 export multiplicateur
 export gain
 export jouer_yams
+export simule_Yams
 
 include("yams.jl")
 
