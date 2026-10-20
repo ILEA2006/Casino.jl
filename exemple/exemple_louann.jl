@@ -1,12 +1,11 @@
 using Casino
 
-fonds=100   #porte monnaie du joueur
-gain=0
-joueur(fonds,gain)
+#gains et mises a tester
 a=sumdes()  #come out lancer (1er de la manche)
-PassLine(7)
 
-DontPass(a)
+passline(7)
+
+dontpass(a)
 
 #entrer le pari
 print("insérez votre pari: ")

@@ -1,10 +1,12 @@
+mutable struct CrapsGamer <: AbstractGamer
+    capital :: int128
+    mise :: int128
+end
 
-#a =somme a ajouter au porte feuille du joueur
-#peut etre negatif si joueur perds sa mise
-#mets pas a jour ses valeurs
-function joueur(fonds,a)
-fonds = fonds +a
-print(fonds)
+struct CrapsGame <:AbstractGame end
+
+function gains(a)
+joueur_craps.fonds=joueur_craps.fonds +a
 end
 
 function sumdes()
@@ -14,16 +16,14 @@ end
 
 #a prends le 1er lancer de des
 #b prends tous les lancers sur le point
-#manque gestion des mises
-function PassLine(a) #pari le plus general du craps (facile de gagner)
-x=(-10)
-joueur(fonds,x)
+#pari le plus general du craps (facile de gagner)
+function passline(a) 
 if(a==7) || (a==11)
-    print("gagné")  #remise de la mise
-    x=20
-    joueur(fonds,x)  #fonctionne pas fonction réinitialise pas la valeur
+    print("gagné") 
+    CrapsGamer.capital=CrapsGamer.capital + CrapsGamer.mise #puisqu'on a pas enlevé la mise avant
 elseif (a==2)|| (a==3)||(a==12)
-    print("perdu")   #mise perdue
+    print("perdu")  
+    CrapsGamer.capital= CrapsGamer.capital - CrapsGamer.mise
 else
     #jeu sur le point
     print("point = ", a)
@@ -32,9 +32,10 @@ else
     while (b!=7) & (b!=a)
        b=sumdes()
         if(b==a)
-        print("gagné ") #remise de la mise
+        print("gagné ")   #joueur reprends sa mise donc pas de changement de capital 
         elseif (b==7)
-        print(", 7 qui prend ")  #perds la mise
+        print(", 7 qui prend ") 
+        CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
         else 
         print("relance: ")
         end
@@ -43,13 +44,14 @@ else
 end
 end
 
-
 #même fonctionnement que passLine en inversé
-function DontPass(a)  #pari don't pass
+function dontpass(a)  #pari don't pass
 if(a==7) || (a==11)
     print("perdu ")  #perds la mise
+    CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
 elseif (a==2)|| (a==3)
     print("gagné ")   #remise du gain
+    CrapsGamer.capital=CrapsGamer.capital + CrapsGamer.mise
 elseif(a==12)
     print("reprends ta mise ")
 else
@@ -60,8 +62,10 @@ else
        b=sumdes()
         if(b==a)
         print("perdu au point ")  #perds la mise
+        CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
         elseif (b==7)
         print(", 7 qui prend ")   #gagne la mise 
+        CrapsGamer.capital=CrapsGamer.capital+CrapsGamer.mise
         else 
         print("relance: ")
         end
@@ -70,17 +74,21 @@ else
 end
 end
 
-function prop(x)  #pari proposition (chiffre precis)
+#pari proposition (chiffre precis) sur un lancer
+function prop(x)  
 s=readline()  
 print("lancer= ",x)
 if(x==s)
   print("gagné")   #gagne ta mise 
+  CrapsGamer.capital=CrapsGamer.capital+CrapsGamer.mise
 else
     print("perdu")
+    CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
 end
 end
 
-function come(a) #comme passline mais a placer n'importe quand
+#comme passline mais a placer n'importe quand
+function come(a)  
 if(a==7) || (a==11)
     print("gagné ")   #prends gros gain (pari risqué)
 elseif (a==2)|| (a==3)||(a==12)
@@ -94,8 +102,10 @@ else
        b=sumdes()
         if(b==a)
         print("gagné au point ")  #reprends ta mise
+        CrapsGamer.capital=CrapsGamer.capital+CrapsGamer.mise
         elseif (b==7)
         print(", 7 qui prend ")  #perdu
+        CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
         else 
         print("relance: ")
         end
@@ -104,11 +114,14 @@ else
 end
 end
 
-function dontcome(a) #comme dontpass mais a placer n'import quand
+#comme dontpass mais a placer n'import quand
+function dontcome(a)
 if(a==7) || (a==11)
     print("perdu ")
+    CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
 elseif (a==2)|| (a==3)
     print("gagné ")  #gagne ta mise
+    CrapsGamer.capital=CrapsGamer.capital+CrapsGamer.mise
 elseif(a==12)
     print("reprends ta mise ")
 else
@@ -119,8 +132,10 @@ else
        b=sumdes()
         if(b==a)
         print("perdu au point ")  
+        CrapsGamer.capital=CrapsGamer.capital-CrapsGamer.mise
         elseif (b==7)
         print(", 7 qui prend ")  #gagne ta mise
+        CrapsGamer.capital=CrapsGamer.capital+CrapsGamer.mise
         else 
         print("relance: ")
         end
