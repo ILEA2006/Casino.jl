@@ -19,8 +19,9 @@ export simule_Yams
 include("yams.jl")
 
 # Roulette
-export Joueur
-export lancer_roulette
+export RouletteGamer
+export RouletteGame
+export bet!
 export rouge
 export couleur
 export parite
