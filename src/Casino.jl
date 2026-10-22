@@ -2,6 +2,10 @@ module Casino
 
 using StatsBase
 
+#abstract types communs
+abstract type AbstractGamer end
+abstract type AbstractGame end
+
 #Yams
 export Joueur_Yams
 export ResultatYams
@@ -15,8 +19,9 @@ export jouer_yams
 include("yams.jl")
 
 # Roulette
-export Joueur
-export lancer_roulette
+export RouletteGamer
+export RouletteGame
+export bet!
 export rouge
 export couleur
 export parite

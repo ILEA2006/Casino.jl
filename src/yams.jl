@@ -92,7 +92,7 @@ function jouer_yams(mise)
     return ResultatYams(des, comb, mise, montant)
 end
 
-function jouer_yams(joueur::Joueur, mise::Real)
+function jouer_yams(joueur::Joueur_Yams, mise::Real)
 
     # Vérifier que la mise est valide
     if mise <= 0
