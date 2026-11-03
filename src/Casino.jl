@@ -22,7 +22,7 @@ include("yams.jl")
 export RouletteGamer
 export RouletteGame
 export bet!
-export rouge
+export RougeBet, NumeroBet, NoirBet, PairBet, ImpairBet, ManqueBet, PasseBet
 export couleur
 export parite
 export manque_passe
@@ -32,8 +32,7 @@ export prelever_mise
 export pari_gagnant
 export calculer_gain
 export ajouter_gain
-export jouer_roulette
-export ResultatRoulette
+export RouletteResult 
 
 include("roulette.jl")
 
