@@ -65,7 +65,7 @@ function gain(mise, combinaison)
 end
 
 #On utilise le multiple dispatching pour créer une fonction qui simule une partie de Yams avec ou sans Joueur
-function jouer_yams(mise)
+function jouerYams(mise)
 
     # Vérifier que la mise est valide
     if mise <= 0
@@ -82,7 +82,7 @@ function jouer_yams(mise)
     return YamsGame(des, comb, mise, montant)
 end
 
-function jouer_yams(joueur::YamsGamer, mise::Real)
+function jouerYams(joueur::YamsGamer, mise::Real)
 
     # Vérifier que la mise est valide
     if mise <= 0
@@ -98,7 +98,7 @@ function jouer_yams(joueur::YamsGamer, mise::Real)
     joueur.solde -= mise
 
     # Jouer une partie avec la première méthode
-    resultat = jouer_yams(mise)
+    resultat = jouerYams(mise)
 
     # Ajouter le gain au solde
     joueur.solde += resultat.gain
@@ -109,7 +109,7 @@ function jouer_yams(joueur::YamsGamer, mise::Real)
     return resultat
 end
 
-function simule_Yams(joueur::YamsGamer, nb::Int, mise::Real)
+function simuleYams(joueur::YamsGamer, nb::Int, mise::Real)
 
     historique = Float64[joueur.solde]
 
@@ -120,7 +120,7 @@ function simule_Yams(joueur::YamsGamer, nb::Int, mise::Real)
             break
         end
 
-        jouer_yams(joueur, mise)
+        jouerYams(joueur, mise)
 
         push!(historique, joueur.solde)
     end
