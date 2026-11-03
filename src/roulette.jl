@@ -29,13 +29,9 @@ end
 
 RouletteGamer(capital::Real) = RouletteGamer(Float64(capital), RouletteResult[])
 
-function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
-    pari_gagnant(pari, rand(roulette))
-    prelever_mise(joueur, pari)
-    joueur
-end
 
- Base.rand((roulette::RouletteGame)) = rand(0:36)
+
+Base.rand((roulette::RouletteGame)) = rand(0:36)
 
 
 function couleur(numero)
@@ -132,11 +128,10 @@ end
 function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
 
     # vérifier et prelever la mise
-    if !verifier_pari(pari, joueur)
+    if prelever_mise(joueur, pari)
         return nothing
     end
-    prelever_mise(joueur, pari)
-
+    
     # lancer la roulette
     numero = rand(roulette)
 
