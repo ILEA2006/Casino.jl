@@ -36,3 +36,15 @@ gain = calculer_gain(pari, numero)
 joueur = RouletteGamer(100.0)
 pari = Pari("ROUGE", 10.0)
 jouer_roulette(joueur, pari)
+
+
+
+using Casino
+
+roulette = RouletteGame()
+
+joueur = RouletteGamer(100.0)
+
+pari = Pari(0, RougeBet, 10.0)
+
+resultat = bet!(roulette, joueur, pari)
