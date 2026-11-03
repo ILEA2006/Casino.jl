@@ -4,7 +4,7 @@ using CairoMakie
 Noé = YamsGamer("Noé", 1000.0, 0)
 
 # Simulation de 100 parties
-historique = simule_Yams(Noé, 100, 10.0)
+historique = simuleYams(Noé, 100, 10.0)
 
 # Création de la figure
 fig = Figure(size = (900, 500))

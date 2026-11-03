@@ -12,8 +12,8 @@ export ResultatYams
 export combinaison
 export multiplicateur
 export gain
-export jouer_yams
-export simule_Yams
+export jouerYams
+export simuleYams
 
 include("yams.jl")
 
