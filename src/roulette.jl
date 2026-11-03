@@ -73,12 +73,11 @@ function verifier_pari(pari::Pari, joueur::RouletteGamer)
 
     if pari.type_pari == NumeroBet && !(0 <= pari.numero <= 36)
         return false
-     if !isfinite(pari.mise) || pari.mise <= 0
+    elseif !isfinite(pari.mise) || pari.mise <= 0
         return false
     elseif pari.mise > joueur.capital
         return false
     else
-        println("Pari valide : $(pari.type_pari) avec une mise de $(pari.mise)€.")
         return true
     end
 end
@@ -136,6 +135,7 @@ function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
     if !verifier_pari(pari, joueur)
         return nothing
     end
+    prelever_mise(joueur, pari)
 
     # lancer la roulette
     numero = rand(roulette)
