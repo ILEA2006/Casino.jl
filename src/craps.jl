@@ -118,6 +118,7 @@ end
 function come(a::Int,gamer:: AbstractGamer) 
 bet=4
 if(a==7) || (a==11)
+    ResultatCraps.sumd=a
     gamer.capital=gamer.capital+gamer.mise
     res="gagné"
 elseif (a==2)|| (a==3)||(a==12)
@@ -126,7 +127,7 @@ elseif (a==2)|| (a==3)||(a==12)
     res="perdu"
 else
     #jeu sur le point
-    ResultatCraps.sumd=a
+    #ResultatCraps.sumd=a
 
     b=lanceurcraps()
     while (b!=7) & (b!=a)
@@ -142,7 +143,7 @@ else
         else 
         #relance
         end
-   ResultatCraps.sumd
+   #ResultatCraps.sumd
     end
 end
 return gamer, bet, res
@@ -152,6 +153,7 @@ end
 function dontcome(a::Int,gamer:: AbstractGamer)
 bet=5
 if(a==7) || (a==11)
+    ResultatCraps.sumd=a
     #perdu
     gamer.capital=gamer.capital-gamer.mise
     res="perdu"
@@ -163,7 +165,7 @@ elseif(a==12)
     #reprends ta mise
     res="neutre"
 else
-   ResultatCraps.sumd=a
+   #ResultatCraps.sumd=a
 
     b=lanceurcraps()
     while (b!=7) & (b!=a)
