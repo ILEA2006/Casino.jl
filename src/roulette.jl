@@ -109,14 +109,12 @@ function pari_gagnant(pari::Pari, numero::Int)
 end
 
 function calculer_gain(pari::Pari, numero::Int)
-    if pari_gagnant(pari, numero)
-        return pari.mise * 2
-    else
+    if !pari_gagnant(pari, numero)
         return 0.0
-    end
-    
-    if pari.type_pari == NumeroBet
+    elseif pari.type_pari == NumeroBet
         return pari.mise * 36
+    else
+        return pari.mise * 2
     end
 end
 
@@ -128,7 +126,7 @@ end
 function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
 
     # vérifier et prelever la mise
-    if prelever_mise(joueur, pari)
+    if !prelever_mise(joueur, pari)
         return nothing
     end
     
