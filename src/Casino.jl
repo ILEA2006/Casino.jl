@@ -12,26 +12,19 @@ export ResultatYams
 export combinaison
 export multiplicateur
 export gain
-export jouer_yams
-export simule_Yams
+export jouerYams
+export simuleYams
 
 include("yams.jl")
 
 # Roulette
-export RouletteGamer
-export RouletteGame
-export bet!
-export rouge
-export couleur
-export parite
-export manque_passe
-export Pari
-export verifier_pari
-export prelever_mise
-export pari_gagnant
-export calculer_gain
-export ajouter_gain
-export jouer_roulette
+export RouletteGamer, RouletteGame,  RouletteResult 
+export Pari, bet!
+export RougeBet, NumeroBet, NoirBet, PairBet, ImpairBet, ManqueBet, PasseBet
+export parite, manque_passe, couleur
+export verifier_pari, prelever_mise, pari_gagnant
+export calculer_gain, ajouter_gain
+
 
 include("roulette.jl")
 

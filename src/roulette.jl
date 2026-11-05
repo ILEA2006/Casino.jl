@@ -27,17 +27,11 @@ mutable struct RouletteGamer <: AbstractGamer
     results::Vector{RouletteResult}
 end
 
+RouletteGamer(capital::Real) = RouletteGamer(Float64(capital), RouletteResult[])
 
 
 
-
-function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
-    pari_gagnant(pari, rand(roulette))
-    prelever_mise(joueur, pari)
-    joueur
-end
-
- Base.rand((roulette::RouletteGame)) = rand(0:36)
+Base.rand((roulette::RouletteGame)) = rand(0:36)
 
 
 function couleur(numero)
@@ -73,14 +67,15 @@ end
 
 function verifier_pari(pari::Pari, joueur::RouletteGamer)
 
-    if pari.type_pari == NumeroBet && !(0 <= pari.numero <= 36)
+    if !isfinite(joueur.capital) || joueur.capital < 0
         return false
-     if !isfinite(pari.mise) || pari.mise <= 0
+    elseif pari.type_pari == NumeroBet && !(0 <= pari.numero <= 36)
+        return false
+    elseif !isfinite(pari.mise) || pari.mise <= 0
         return false
     elseif pari.mise > joueur.capital
         return false
     else
-        println("Pari valide : $(pari.type_pari) avec une mise de $(pari.mise)€.")
         return true
     end
 end
@@ -108,33 +103,37 @@ function pari_gagnant(pari::Pari, numero::Int)
         return true
     elseif pari.type_pari == PasseBet && manque_passe(numero) == PasseNumber
         return true
+    elseif pari.type_pari == NumeroBet && pari.numero == numero
+        return true
     else
         return false
     end
 end
 
 function calculer_gain(pari::Pari, numero::Int)
-    if pari_gagnant(pari, numero)
-        return pari.mise * 2
-    else
+    if !pari_gagnant(pari, numero)
         return 0.0
+    elseif pari.type_pari == NumeroBet
+        return pari.mise * 36
+    else
+        return pari.mise * 2
     end
-    
 end
 
 function ajouter_gain(joueur::RouletteGamer, gain::Float64)
     joueur.capital = joueur.capital + gain
     return  joueur.capital
-    println("Gain de $(gain)€ ajouté. Nouveau capital : $(joueur.capital)€.")
 end
 
-function jouer_roulette(joueur::RouletteGamer, pari::Pari)
+function bet!(roulette::RouletteGame, joueur::RouletteGamer, pari::Pari)
 
-    # prelever la mise
-    prelever_mise(joueur, pari)
+    # vérifier et prelever la mise
+    if !prelever_mise(joueur, pari)
+        return nothing
+    end
     
     # lancer la roulette
-    numero = lancer_roulette()
+    numero = rand(roulette)
 
     # calculer le gain
     gain = calculer_gain(pari, numero)
@@ -142,19 +141,12 @@ function jouer_roulette(joueur::RouletteGamer, pari::Pari)
     # ajouter le gain au capital du joueur
     ajouter_gain(joueur, gain)
 
-    # afficher le résultat du tour
-    println("Numéro tiré : $(numero).")
-    println("couleur : $(couleur(numero))")
-    println("Parité : $(parite(numero))")
-    println("Manque/Passe : $(manque_passe(numero))")
+    # Résultat du tour
+   resultat= RouletteResult(numero, pari, gain)
 
+    # Ajouter le résultat à l'historique
+    push!(joueur.results, resultat)
 
-    if gain > 0
-        println("Félicitations ! Vous avez gagné $(gain)€.")
-    else
-        println("Désolé, vous avez perdu votre mise de $(pari.mise)€.")
-    end
-
-    println("Capital restant : $(joueur.capital)€.")
-
+    # Renvoyer le résultat
+    return resultat
 end
