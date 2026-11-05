@@ -36,8 +36,7 @@ export jouer_roulette
 include("roulette.jl")
 
 #Craps
-export AbstractGame
-export AbstractGamer
+export CrapsGamer
 export ResultatCraps
 export passline
 export sumdes
