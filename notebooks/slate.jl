@@ -6,6 +6,14 @@ try; import KaimonSlate; catch; error("This is a Kaimon Slate notebook — runni
 """
 
 #%% code id=5dc8fa
+begin
+    import Pkg
+    Pkg.activate(raw"C:\Users\igouw\Github\Casino.jl")
+    using Casino
+end
+
+#%% code id=1b7e3b
+roulette = RouletteGame()
 
 # ╔═╡ Slate.config · per-notebook settings (Settings panel)
 #   docid = 349d6240-7636-4e8e-bb5f-f2e82b54fc8a
