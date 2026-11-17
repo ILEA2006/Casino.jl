@@ -145,4 +145,5 @@ historique = rand(Noé, 100, 10.0)
 
 # ╔═╡ Slate.config · per-notebook settings (Settings panel)
 #   docid = 349d6240-7636-4e8e-bb5f-f2e82b54fc8a
+#   format = 2
 # ╚═╡
