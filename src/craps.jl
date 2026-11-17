@@ -3,49 +3,52 @@ mutable struct CrapsGamer <: AbstractGamer
     mise::Int
 end
 
-mutable struct ResultatCraps
+mutable struct ResultatCraps <: AbstractGame
     bet::Int
     sumd::Int 
-    res::String   
+    res::String 
+    fres::String  
 end
 
-struct CrapsGame <:AbstractGame end
+struct CrapsGame <: AbstractGame 
+end
+
 
 #Base.rand((lanceur::CrapsGame))
 
-function sumdes()
-v=rand(1:6, 2)
-sumd=v[1]+v[2]
+function Base.rand(craps:: CrapsGame)
+craps=rand(1:6, 2)
+sumd=craps[1]+craps[2]
 return sumd
 end
 
-function lanceurcraps()
-b=sumdes()
+function lanceurcraps(craps::CrapsGame)
+b=rand(craps)
 return b
 end
 
 #a prends le 1er lancer de des
 #b prends tous les lancers sur le point
 #pari le plus general du craps (facile de gagner)
-function passline(a::Int, gamer:: AbstractGamer)
+function passline(craps::CrapsGame, gamer:: AbstractGamer)
  bet=1
-if(a==7) || (a==11)
+if(craps==7) || (craps==11)
     #gagné
-    ResultatCraps.sumd=a
+    ResultatCraps.sumd=craps
     gamer.capital = gamer.capital + gamer.mise #puisqu'on a pas enlevé la mise avant
     res="gagné"
-elseif (a==2)|| (a==3)||(a==12)
+elseif (craps==2)|| (craps==3)||(craps==12)
     #perdu
     gamer.capital= gamer.capital - gamer.mise
     res="perdu"
 else
     #jeu sur le point
     res="neutre"  #sans ca la fonction beugue
-    sumd=a
+    sumd=craps
 
-    b=lanceurcraps()
+    b=rand(craps)
     while (b!=7) & (b!=a)
-       b=sumdes()
+       b=rand(craps)
         if(b==a)
         res="gagne au point"
         #gagné  #joueur reprends sa mise donc pas de changement de capital 
@@ -60,27 +63,27 @@ return gamer, bet, res
 end
 
 #même fonctionnement que passLine en inversé
-function dontpass(a::Int,gamer:: AbstractGamer)  #pari don't pass
+function dontpass(craps::CrapsGame, gamer:: AbstractGamer)  #pari don't pass
 bet=2
-    if(a==7) || (a==11)
+    if(craps==7) || (craps==11)
     #perds la mise
     gamer.capital=gamer.capital-gamer.mise
     res="perdu"
-elseif (a==2)|| (a==3)
+elseif (craps==2)|| (craps==3)
     #gagne ce que tu as mise
     gamer.capital=gamer.capital + gamer.mise
     res="gagné"
-elseif(a==12)
+elseif(craps==12)
     #reprends la mise
     res="fin de manche"
 else
     #joue sur le point
    #ResultatCraps.sumd=a
 
-    b=lanceurcraps()
+    b =rand(craps)
     while (b!=7) & (b!=a)
-       b=sumdes()
-        if(b==a)
+       b=rand(craps)
+        if(b==craps)
           #perds la mise
           res="perdu"
         gamer.capital=gamer.capital-gamer.mise
@@ -98,7 +101,7 @@ return gamer, bet ,res
 end
 
 #pari proposition (chiffre precis) sur un lancer
-function prop(x,gamer:: AbstractGamer)  
+function prop(x, gamer:: AbstractGamer)  
 bet=3
 s=readline()  
 print("lancer= ",x)
@@ -114,13 +117,13 @@ return gamer, bet, res
 end
 
 #comme passline mais a placer n'importe quand
-function come(a::Int,gamer:: AbstractGamer) 
+function come(craps::CrapsGame, gamer:: AbstractGamer) 
 bet=4
-if(a==7) || (a==11)
+if(craps==7) || (craps==11)
     ResultatCraps.sumd=a
     gamer.capital=gamer.capital+gamer.mise
     res="gagné"
-elseif (a==2)|| (a==3)||(a==12)
+elseif (craps==2)|| (craps==3)||(craps==12)
     #preds la mise
     gamer.capital=gamer.capital-gamer.mise
     res="perdu"
@@ -128,9 +131,9 @@ else
     #jeu sur le point
     #ResultatCraps.sumd=a
 
-    b=lanceurcraps()
+    b=rand(craps)
     while (b!=7) & (b!=a)
-       b=sumdes()
+       b=rand(craps)
         if(b==a)
         #gagne ta mise
         gamer.capital=gamer.capital+gamer.mise
@@ -150,26 +153,26 @@ end
 
 #comme dontpass mais a placer n'import quand
 #a modifier pour gérer le come out roll personalisé (pareil pour come bet)
-function dontcome(a::Int,gamer:: AbstractGamer)
+function dontcome(craps::CrapsGame, gamer:: AbstractGamer)
 bet=5
-if(a==7) || (a==11)
+if(craps==7) || (craps==11)
     ResultatCraps.sumd=a
     #perdu
     gamer.capital=gamer.capital-gamer.mise
     res="perdu"
-elseif (a==2)|| (a==3)
+elseif (craps==2)|| (craps==3)
     #gagne ta mise
     gamer.capital=gamer.capital+gamer.mise
     res="gagné"
-elseif(a==12)
+elseif(craps==12)
     #reprends ta mise
     res="neutre"
 else
    #ResultatCraps.sumd=a
-    b=lanceurcraps()
+    b=rand(craps)
     while (b!=7) & (b!=a)
-       b=sumdes()
-        if(b==a)
+       b=rand(craps)
+        if(b==craps)
        #perdu au point
         gamer.capital=gamer.capital-gamer.mise
         res="perdu"
@@ -177,10 +180,8 @@ else
         #gagne ta mise
         gamer.capital=gamer.capital+gamer.mise
         res="gagné"
-       # else 
-        #relance
         end
     end 
 end
-return gamer, bet, res
+return gamer, bet , res
 end
